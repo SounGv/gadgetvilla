@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push: { branches: [main] }
+  pull_request: { branches: [main] }
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @gv/db generate
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+  docker:
+    needs: quality
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build API image
+        run: docker build -f docker/api.Dockerfile --target prod -t gadgetvilla-api .
+      - name: Build Web image
+        run: docker build -f docker/web.Dockerfile --target prod -t gadgetvilla-web .
+      # ขั้นตอน deploy จริง: push image ไป registry แล้ว ssh ไป server รัน docker compose pull && up -d
+      # ต้องตั้งค่า secrets: REGISTRY_TOKEN, DEPLOY_HOST, DEPLOY_KEY ใน GitHub repo settings

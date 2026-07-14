@@ -1,0 +1,32 @@
+{
+  "name": "gadgetvilla",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GADGET VILLA — Enterprise E-Commerce Platform (Fantech & UGREEN)",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "db:generate": "pnpm --filter @gv/db generate",
+    "db:migrate": "pnpm --filter @gv/db migrate",
+    "db:seed": "pnpm --filter @gv/db seed",
+    "docker:dev": "docker compose up --build",
+    "docker:prod": "docker compose -f docker-compose.prod.yml up --build -d"
+  },
+  "devDependencies": {
+    "turbo": "^2.1.0",
+    "typescript": "^5.5.4",
+    "prettier": "^3.3.3"
+  }
+}

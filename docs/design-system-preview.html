@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="th" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GADGET VILLA — Design System Preview</title>
+<style>
+:root{
+  --brand:17 19 24;--accent:225 29 42;--accent2:22 163 74;
+  --bg:255 255 255;--bg-subtle:249 250 251;--card:255 255 255;
+  --fg:17 19 24;--fg-muted:107 114 128;--border:229 231 235;--ring:17 19 24;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:20px;
+  --sh-sm:0 2px 8px rgb(0 0 0/.06);--sh-md:0 8px 24px rgb(0 0 0/.08);--sh-lg:0 16px 40px rgb(0 0 0/.10);
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+.dark{
+  --brand:245 247 250;--accent:255 77 87;--accent2:34 197 94;
+  --bg:11 13 18;--bg-subtle:17 20 28;--card:22 26 36;
+  --fg:238 241 247;--fg-muted:154 164 184;--border:36 42 56;--ring:245 247 250;
+  --sh-sm:0 2px 8px rgb(0 0 0/.5);--sh-md:0 8px 24px rgb(0 0 0/.55);--sh-lg:0 16px 40px rgb(0 0 0/.6);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans Thai",Inter,system-ui,sans-serif;background:rgb(var(--bg));color:rgb(var(--fg));transition:background .3s,color .3s;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+h1{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.muted{color:rgb(var(--fg-muted))}
+section{margin-top:48px}
+.sec-title{font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgb(var(--accent));margin-bottom:16px}
+.toggle{border:1px solid rgb(var(--border));background:rgb(var(--card));color:rgb(var(--fg));padding:9px 16px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px}
+/* swatches */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sw{border:1px solid rgb(var(--border));border-radius:var(--r-md);overflow:hidden}
+.sw .c{height:70px}.sw .l{padding:8px 12px;font-size:12px;font-weight:600}
+.sw .l span{display:block;color:rgb(var(--fg-muted));font-weight:400}
+/* type */
+.type>div{padding:8px 0;border-bottom:1px solid rgb(var(--border))}
+.t-display{font-size:56px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.t-h1{font-size:40px;font-weight:800;letter-spacing:-.02em}
+.t-h2{font-size:32px;font-weight:700}
+.t-h3{font-size:24px;font-weight:700}
+.t-body{font-size:16px}
+.t-sm{font-size:14px;color:rgb(var(--fg-muted))}
+/* buttons */
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:.2s var(--ease)}
+.btn-primary{background:rgb(var(--brand));color:rgb(var(--bg))}
+.btn-accent{background:rgb(var(--accent));color:#fff}
+.btn-green{background:rgb(var(--accent2));color:#fff}
+.btn-ghost{background:transparent;border:1.5px solid rgb(var(--border));color:rgb(var(--fg))}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+/* product card */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:rgb(var(--card));border:1px solid rgb(var(--border));border-radius:var(--r-lg);overflow:hidden;transition:.25s var(--ease)}
+.card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
+.card .thumb{aspect-ratio:1;background:rgb(var(--bg-subtle));display:grid;place-items:center;position:relative}
+.card .thumb svg{width:70px;height:70px;opacity:.5}
+.badge{position:absolute;top:10px;left:10px;font-size:11px;font-weight:800;padding:4px 9px;border-radius:6px}
+.b-sale{background:rgb(var(--accent));color:#fff}.b-new{background:rgb(var(--brand));color:rgb(var(--bg))}
+.card .b{padding:14px}
+.card .cat{font-size:12px;color:rgb(var(--fg-muted));text-transform:uppercase;letter-spacing:.5px}
+.card .nm{font-weight:700;font-size:15px;margin:3px 0 6px}
+.stars{color:#f5a623;font-size:13px}
+.price{font-size:18px;font-weight:800}.old{color:rgb(var(--fg-muted));text-decoration:line-through;font-size:13px;margin-left:6px}
+/* states */
+.states{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.state{background:rgb(var(--card));border:1px solid rgb(var(--border));border-radius:var(--r-lg);padding:24px}
+.sk{background:rgb(var(--bg-subtle));border-radius:8px;position:relative;overflow:hidden}
+.sk::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgb(var(--border)/.5),transparent);transform:translateX(-100%);animation:sh 1.5s infinite}
+@keyframes sh{100%{transform:translateX(100%)}}
+.empty{text-align:center;color:rgb(var(--fg-muted))}
+.tag{display:inline-flex;gap:6px;align-items:center;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600}
+.tag-ok{background:rgb(var(--accent2)/.15);color:rgb(var(--accent2))}
+.tag-err{background:rgb(var(--accent)/.12);color:rgb(var(--accent))}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.states{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <h1>GADGET VILLA</h1>
+      <div class="muted">Villa Design System · Preview (Phase 4)</div>
+    </div>
+    <button class="toggle" onclick="document.documentElement.classList.toggle('dark');this.textContent=document.documentElement.classList.contains('dark')?'☀️ Light':'🌙 Dark'">🌙 Dark</button>
+  </div>
+
+  <section>
+    <div class="sec-title">Color</div>
+    <div class="swatches">
+      <div class="sw"><div class="c" style="background:rgb(var(--brand))"></div><div class="l">Brand / Primary<span>near-black</span></div></div>
+      <div class="sw"><div class="c" style="background:rgb(var(--accent))"></div><div class="l">Accent (Fantech)<span>#E11D2A</span></div></div>
+      <div class="sw"><div class="c" style="background:rgb(var(--accent2))"></div><div class="l">Accent 2 (UGREEN)<span>#16A34A</span></div></div>
+      <div class="sw"><div class="c" style="background:rgb(var(--bg-subtle))"></div><div class="l">Surface subtle</div></div>
+      <div class="sw"><div class="c" style="background:rgb(var(--border))"></div><div class="l">Border</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">Typography</div>
+    <div class="type">
+      <div class="t-display">อัปเกรดสายเกม</div>
+      <div class="t-h1">Heading 1 · พาดหัวใหญ่</div>
+      <div class="t-h2">Heading 2 · หัวข้อรอง</div>
+      <div class="t-h3">Heading 3 · ชื่อสินค้า</div>
+      <div class="t-body">Body · ข้อความปกติสำหรับรายละเอียดสินค้าและเนื้อหาทั่วไป อ่านสบายตา</div>
+      <div class="t-sm">Small · ข้อความรอง เช่น หมายเหตุ ราคาเดิม เงื่อนไข</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">Buttons</div>
+    <div class="row">
+      <button class="btn btn-primary">ปุ่มหลัก</button>
+      <button class="btn btn-accent">ช้อปเลย</button>
+      <button class="btn btn-green">ช้อป UGREEN</button>
+      <button class="btn btn-ghost">รอง</button>
+      <button class="btn btn-primary" disabled>Disabled</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">Product Card</div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <section>
+    <div class="sec-title">States</div>
+    <div class="states">
+      <div class="state">
+        <div class="muted" style="font-size:13px;margin-bottom:12px">Loading skeleton</div>
+        <div class="sk" style="height:120px;margin-bottom:10px"></div>
+        <div class="sk" style="height:14px;width:70%;margin-bottom:8px"></div>
+        <div class="sk" style="height:14px;width:40%"></div>
+      </div>
+      <div class="state empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:8px auto"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+        <div style="font-weight:700;color:rgb(var(--fg))">ตะกร้าว่าง</div>
+        <div style="font-size:14px;margin:6px 0 14px">ยังไม่มีสินค้าในตะกร้า</div>
+        <button class="btn btn-primary">เลือกซื้อสินค้า</button>
+      </div>
+      <div class="state"><div class="muted" style="font-size:13px;margin-bottom:12px">Success</div><span class="tag tag-ok">✓ เพิ่มลงตะกร้าแล้ว</span></div>
+      <div class="state"><div class="muted" style="font-size:13px;margin-bottom:12px">Error</div><span class="tag tag-err">✕ สินค้าหมดสต็อก · ลองใหม่</span></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const gv=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M8 7V5h8v2"/></svg>`;
+const items=[
+  {c:"เมาส์เกมมิ่ง",n:"Fantech ARIA XD7",p:"฿1,590",o:"฿1,990",b:"b-sale",t:"-20%"},
+  {c:"คีย์บอร์ด",n:"Fantech MAXFIT81",p:"฿2,490",o:"",b:"b-new",t:"ใหม่"},
+  {c:"ที่ชาร์จ GaN",n:"UGREEN Nexode 65W",p:"฿890",o:"฿1,190",b:"b-sale",t:"-25%"},
+  {c:"NAS",n:"UGREEN NASync DXP4800",p:"฿23,900",o:"",b:"b-new",t:"ใหม่"},
+];
+document.getElementById('cards').innerHTML=items.map(i=>`
+  <div class="card"><div class="thumb"><span class="badge ${i.b}">${i.t}</span>${gv}</div>
+  <div class="b"><div class="cat">${i.c}</div><div class="nm">${i.n}</div>
+  <div class="stars">★★★★★</div>
+  <div style="margin-top:6px"><span class="price">${i.p}</span>${i.o?`<span class="old">${i.o}</span>`:''}</div></div></div>`).join('');
+</script>
+</body>
+</html>
